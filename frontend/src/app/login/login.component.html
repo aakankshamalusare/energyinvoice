@@ -1,0 +1,121 @@
+
+
+
+<!-- 
+<section class="">
+    <nav class="navbar navbar-dark bg-dark ">
+     
+      <h4 style="color: aliceblue;">Well Come</h4>
+    
+    </nav>
+   
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+      <div class="container">
+        <div class="row gx-lg-5 align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            
+            
+          </div>
+  
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card">
+              <div class="card-body py-5 px-md-5">
+
+                <form #f="ngForm">
+                  User ID input 
+                  <div class="form-outline mb-4">
+                    <input #employeeId="ngModel" type="email" ngModel type="employeeId" name="employeeId" id="userID" class="form-control" />
+                    <label class="form-label" for="employeeId">Employee ID</label>
+                  </div>
+
+                  
+                  <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid"> * Please
+                    Enter the Employee ID ...
+                </div>
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid && employeeId.errors?.minlength">
+                    ** Please enter employeeId of {{employeeId.errors?.minlength.requiredLength}}
+                    character
+                </div>
+                <div class="alert alert-danger"
+                    *ngIf="employeeId.touched && !employeeId.valid && employeeId.errors?.pattern">*
+                    Appropriate EmployeeId is required
+
+                </div>
+  
+                  OTP input
+                  <div class="form-outline mb-4">
+                    <input #OTP type="password" id="userotp" class="form-control" />
+                    <label class="form-label" for="userotp">OTP</label>
+                  </div>
+  
+                   Submit button 
+                  <button type="send" class="btn btn-primary btn-block mb-4" (click)="otp(employeeId.value)">
+                    Send OTP
+                  </button>
+                  <button  (click)="login(OTP.value,employeeId.value)" type="login" class="btn btn-primary btn-block mb-4" [disabled]="!f.valid" >
+                    login
+                  </button>
+  
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </section>-->
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-11">
+        <div class="card bg-dark my-5">
+          <div class="card-body">
+            <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
+            <ul class="text-center list-inline py-3"></ul>
+
+            <form #f="ngForm">
+            
+              <div class="form-outline mb-4">
+                <input #employeeId="ngModel" type="email" ngModel type="employeeId" name="employeeId" id="userID" class="form-control" />
+                <label class="form-label" for="employeeId">Employee ID</label>
+              </div>
+
+              
+              <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid"> * Please
+                Enter the Employee ID ...
+            </div>
+            <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid && employeeId.errors?.minlength">
+                ** Please enter employeeId of {{employeeId.errors?.minlength.requiredLength}}
+                character
+            </div>
+            <div class="alert alert-danger"
+                *ngIf="employeeId.touched && !employeeId.valid && employeeId.errors?.pattern">*
+                Appropriate EmployeeId is required
+
+            </div>
+
+           
+              <div class="form-outline mb-4">
+                <input #OTP type="password" id="userotp" class="form-control" />
+                <label class="form-label" for="userotp">OTP</label>
+              </div>
+
+              <button type="send" class="btn btn-primary btn-block mb-4" (click)="otp(employeeId.value)">
+               Send OTP
+              </button>
+              <button  (click)="login(OTP.value,employeeId.value)" type="login" class="btn btn-primary btn-block mb-4" [disabled]="!f.valid" >
+                login
+              </button>
+
+              
+            </form>
+          </div>
+          </div>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+
+

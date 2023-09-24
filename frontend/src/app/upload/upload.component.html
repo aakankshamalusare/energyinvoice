@@ -1,0 +1,131 @@
+<div class="card my-5">
+    <div class="card-body">
+      
+
+        <input type="file" (change)="onFileSelected($event)" accept=".csv" />
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <!-- Display the success message in a different style -->
+       <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    </div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--
+        <div class="text-center">
+            <input class="form-control" type="file" 
+                    (change)="onChange($event)">
+          
+            <button (click)="onUpload()" 
+                class="btn btn-success">
+                Upload
+            </button>
+        </div>
+          
+        -- Shareable short link of  uploaded file --
+        <div class="container text-center jumbotron"
+            *ngIf="shortLink">
+            <h2> Visit Here</h2>
+            <a href="{{shortLink}}">{{shortLink}}</a>
+        </div>
+          
+        Flag variable is used here--
+        <div class="container" *ngIf="loading">
+            <h3>Loading ...</h3>
+        </div>
+
+       -->
+
+   
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <!--
+       <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+        
+         
+          <div class="form-group" id="file_upload">
+            <label for="vol_file">File Upload :</label>
+            <input id="vol_file" class="btn" type="file" onchange="$('#uploader').show()" />
+            <input id="uploader" class="btn btn-primary" style="display:none" type="button" ng-click="uploadFile()" />
+            <input id="clearData" value="Clear Volunteer Data" class="btn btn-danger" style="display:none" type="button" ng-click="clearVolunteers()"/>
+          </div>
+
+        
+          
+
+
+         
+
+          <button type="submit" [disabled]="!userForm.form.valid" 
+          class="btn btn-info">Upload</button>
+      </form>
+    </div>
+  </div>
+
+-->
