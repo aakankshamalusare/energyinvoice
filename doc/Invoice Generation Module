@@ -1,0 +1,15 @@
+3. Invoice Generation Module:
+
+Objective: Automatically generate invoices based on predefined billing rules.
+
+Features:
+Invoice Generation:
+
+Invoices are generated based on customer data and predefined billing rules.
+Billing is based on units consumed by the user (e.g., 1 Kw of energy consumed is billed at Rs. 41.50).
+A 5% discount is applied if the payment is made before the due date.
+Additional discounts are applied if the payment is made online (5% discount).
+Invoices include customer details, the amount due, and the due date.
+
+-------------------------------------------------------------------------------------------------------------
+

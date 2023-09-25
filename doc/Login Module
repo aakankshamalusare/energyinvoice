@@ -1,0 +1,89 @@
+1. Login Module:
+
+Objective: Allow employees to log in to the application securely.
+
+Features:
+Users should log in with their employee ID and a mock OTP (one-time password) for authentication.
+
+
+Table:
+   employeeId : Interger
+   otp : Integer(4|6)
+
+
+Steps to follow:
+
+Step 1: Employee enters ID 
+
+-This endpoint receives a POST request at /check-valid.
+-It validates the employee's ID and password.
+-It generates an OTP and sends it to the employee
+-The OTP is also stored in the employee's database record for later verification.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Login Endpoint (/check-valid)
+
+Description:
+-This endpoint handles employee authentication.
+-It validates the provided employee ID 
+-If authentication succeeds, it generates an OTP, sends it to the employee, and stores it for later verification.
+
+Request:
+   HTTP Method: POST
+   PathVariable: employee ID 
+
+Response:
+	HTTP Status 200 OK: OTP sent
+	HTTP Status 400 Bad Request: Invalid credentials.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 2: Employee enters OTP
+
+This endpoint receives a POST request at /login.
+It verifies the entered OTP against the one stored in the employee's database record.
+If the OTP is valid, it marks it as verified and grants access(proceed).
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Verify OTP Endpoint (/login)
+
+
+Description:
+-This endpoint handles OTP verification.
+-It compares the entered OTP with the stored OTP for the employee.
+-If the OTP is valid, it marks it as verified and grants access.
+
+Request:
+   HTTP Method: POST
+   Request Body: employee's employee ID and OTP
+
+Response:
+   HTTP Status 200 OK: OTP verified, login successful.
+   HTTP Status 400 Bad Request: Invalid OTP.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Generate OTP:
+
+In this step, application generates a random OTP (One-Time Password) for the employee. Typically, OTPs are short numeric codes (e.g., 4-digit codes)
+random number generator to create the OTP.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
