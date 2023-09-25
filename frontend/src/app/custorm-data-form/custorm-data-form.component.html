@@ -1,57 +1,12 @@
 <div class="card my-5">
+ 
+  <h2 class="card-title text-center" style="font-size: 30px; text-decoration: underline; font-family: Georgia, 'Times New Roman', serif;"  >{{title}}</h2>
+
+
     <div class="card-body">
+     
       <form (ngSubmit)="onSubmit()" #userForm="ngForm">
-       <!-- 
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" [(ngModel)]="customer.name" 
-            class="form-control" 
-            id="name" 
-            name="name" 
-            placeholder="Enter your name"
-            required #name="ngModel">
-        </div>
-        <div [hidden]="!name.pristine" class="alert alert-danger">Name is required</div>
-      --> 
-       <!-- 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" [(ngModel)]="customer.email" 
-            class="form-control" 
-            id="email" 
-            name="email" 
-            placeholder="Enter your email address"
-            required #email="ngModel">
-        </div>
-        <div [hidden]="!email.pristine" class="alert alert-danger">Email is required</div>
-
-      -->
-
-      <!--
-        <div class="form-group">
-          <label for="TelephoneNumber">TelephoneNumber</label>
-          <input type="text" [(ngModel)]="customer.telephoneNumber" 
-            class="form-control" 
-            id="telephoneNumber" 
-            name="telephoneNumber" 
-            placeholder="Enter your TelephoneNumber"
-            required #telephoneNumber="ngModel">
-         </div>
-         <div [hidden]="!telephoneNumber.pristine" class="alert alert-danger">TelephoneNumber is required</div>
-        -->
-
-      <!---
-        <div class="form-group">
-          <label for="UnitConsumption">UnitConsumption</label>
-          <input type="text" [(ngModel)]="customer.unitConsumption" 
-            class="form-control" 
-            id="unitConsumption" 
-            name="unitConsumption" 
-            placeholder="Enter UnitConsumption"
-            required #unitConsumption="ngModel">
-         </div>
-         <div [hidden]="!unitConsumption.pristine" class="alert alert-danger">UnitConsumption is required</div>
-        -->
+  
 
         <div class="form-group">
           <label for="name">Name</label>
@@ -117,6 +72,7 @@
         </div>
 
     
+        
         <div class="form-group">
           <label for="billingDuration">Billing Month</label>
           <input type="date" [(ngModel)]="customer.billingDuration" 
@@ -125,19 +81,15 @@
             name="billingDuration" 
             placeholder="Enter Billing Month"
             required
-           #billingDuration="ngModel">
-         
-           <!--(change)="validateBillingDuration(billingDuration.value)">-->
+           #billingDuration="ngModel"
+           (ngModelChange)="validateBillingDuration($event)"/>
+
            </div>
           <div *ngIf="billingDuration.errors?.invalidBillingDuration && billingDuration.touched" class="alert alert-danger">
             Date must be between the 1st and 5th day of the month.
           </div>
-        
 
         
-        
-        
-
 
         <div class="form-group">
           <label for="billDueDate">Bill Due Date</label>
@@ -149,8 +101,7 @@
             required
             
             #billDueDate="ngModel"
-           >
-           <!--(change)="validateBillDueDate(billDueDate.value)"-->
+           (change)="validateBillDueDate(billDueDate.value)">
             
           </div>
           <div *ngIf="billDueDate.errors?.invalidbillDueDate && billDueDate.touched" class="alert alert-danger">

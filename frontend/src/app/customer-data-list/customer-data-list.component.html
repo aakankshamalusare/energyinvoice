@@ -1,26 +1,35 @@
-<div class="card my-5">
-    <div class="card-body">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">CustomerID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">TelephoneNumber</th>
-            <th scope ="col">Invoices</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let customer of customers">
-            <td>{{ customer.customerId }}</td>
-            <td>{{ customer.name }}</td>
-            <td><a href="mailto:{{ customer.email }}">{{ customer.email }}</a></td>
-            <td>{{customer.telephoneNumber}}</td>
-            <a [routerLink]="['/invoice',customer.customerId]" class="btn btn-info">Invoice</a>
 
-     
-          </tr>
-        </tbody>
-      </table>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-11">
+      <div class="card my-5">
+        <div class="card-body">
+          <h2 class="card-title text-center" style="font-size: 30px; text-decoration: underline; font-family: Georgia, 'Times New Roman', serif;"  >{{title}}</h2>
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">CustomerID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">TelephoneNumber</th>
+                <th scope="col">Invoices</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let customer of customers">
+                <td>{{ customer.customerId }}</td>
+                <td>{{ customer.name }}</td>
+                <td><a href="mailto:{{ customer.email }}">{{ customer.email }}</a></td>
+                <td>{{customer.telephoneNumber}}</td>
+                <td>
+                  <a [routerLink]="['/invoice', customer.customerId]" class="btn btn-info">Invoice</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <a routerLink="/home" class="btn btn-info btn-block">Home</a>
+        </div>
+      </div>
     </div>
   </div>
+</div>

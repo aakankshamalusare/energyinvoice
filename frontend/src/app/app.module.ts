@@ -13,6 +13,7 @@ import { UploadComponent } from './upload/upload.component';
 import { UpdateInvoiceComponent } from './update-invoice/update-invoice.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { AuthService } from './auth.service';
 
 
 
@@ -37,7 +38,7 @@ import { HomeComponent } from './home/home.component';
   
     
   ],
-  providers: [CustomerDataService],
+  providers: [CustomerDataService,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

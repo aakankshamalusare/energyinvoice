@@ -12,11 +12,13 @@ export class CustomerDataListComponent implements OnInit {
 
   customers!:CustomerData[];
   invoices !: Invoice[];
+  title!:string;
 
   constructor(private customerDataService:CustomerDataService) { }
 
   ngOnInit(): void {
 
+    this.title ="CUSTOMER DETAILS"
     this.getAll()
   }
 

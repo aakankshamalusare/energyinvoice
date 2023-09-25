@@ -19,7 +19,12 @@ export class InvoiceListComponent implements OnInit {
   constructor(private customerDataService:CustomerDataService,
     private route:ActivatedRoute) { }
 
+
+  title!:string;
+
   ngOnInit(): void {
+
+    this.title ="INVOICE DETAILS"
 
    this.getInvoice();
     

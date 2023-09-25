@@ -12,11 +12,14 @@ export class UploadComponent implements OnInit {
 
   errorMessage: string = '';
   successMessage: string = '';
+  title!:string;
 
   constructor(private http:HttpClient) { }
 
   
   ngOnInit(): void {
+
+    this.title="UPLOAD CSV"
   }
 
 

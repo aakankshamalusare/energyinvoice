@@ -3,6 +3,7 @@ import { CustomerData } from '../customer-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerDataService } from '../customer-data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { billingDurationValidator } from '../custom-valiadtors';
 
 @Component({
   selector: 'app-custorm-data-form',
@@ -24,19 +25,33 @@ export class CustormDataFormComponent implements OnInit {
  
   successMessage!: string;
   errorMessage!:string;
+  userForm: FormGroup;
+
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private customerService:CustomerDataService,
-   
+    private formBuilder:FormBuilder
     ) { 
+
+      this.userForm = this.formBuilder.group({
+        billingDuration:[
+          this.customer.billingDuration||null,
+          Validators.required,
+         
+        ],
+      });
 
      
     }
 
 
+    title!:string;
+
     ngOnInit(): void {
+
+      this.title="CUSTOMER DETAILS"
     }
 
 
@@ -45,20 +60,24 @@ export class CustormDataFormComponent implements OnInit {
       this.customerService.add(this.customer)
     .subscribe((response:any)=>{
     
-      const message = response.Message; // Access the "Message" property
-      this.successMessage = message; // Assign the message to a variable or property
+      const message = response.hasOwnProperty('Message') ? response.Message : '';
+     this.successMessage = message;
 
-      const error = response.Error;
+      const error = response.hasOwnProperty('Error') ? response.Error : '';
       this.errorMessage = error;
 
-      
+      if (message !== '') {
+        alert(message);
+        
+      this.router.navigate(['/customers']);
+      }
 
-     // this.router.navigate(['/customers']);
+      if (error !== '') {
+        alert(error);
+      }
+
+
     })
-
-    
-
-   
      
   }
 
@@ -67,87 +86,32 @@ export class CustormDataFormComponent implements OnInit {
     this.router.navigate(['/customers'])
   }
 
+  // Custom validator for billing duration (1-5)
+   validateBillingDuration(value:string) {
+   const selectedDate = new Date(value);
+
+    if (selectedDate.getDate() < 1 || selectedDate.getDate() > 5) {
+      console.log("in IF---------");
+      this.userForm.controls['billingDuration'].setErrors({ 'invalidBillingDuration': true });
+      
+   } else {
+    console.log("in else---------");
+     this.userForm.controls['billingDuration'].setErrors(null);
+     //this.userForm.get('billingDuration').setErrors({ 'invalidBillingDuration': true });
+     }
+   }
+
+   validateBillDueDate(value: string) {
+    const selectedDate = new Date(value);
+
+     if (selectedDate.getDate() < 27 || selectedDate.getDate() > 30) {
+      this.userForm.controls['billDueDate'].setErrors({ 'invalidBillDueDate': true });
+     } else {
+         this.userForm.controls['billDueDate'].setErrors(null);
+     }
+   }
 
   
-  // userForm:any;
-
-  // // Custom validator for billing duration (1-5)
-  // validateBillingDuration(value:string) {
-  //   const selectedDate = new Date(value);
-  
-  //   if (selectedDate.getDate() < 1 || selectedDate.getDate() > 5) {
-  //     this.userForm.controls['billingDuration'].setErrors({ 'invalidBillingDuration': true });
-  //   } else {
-  //     this.userForm.controls['billingDuration'].setErrors(null);
-  //   }
-  // }
-
-  //  validateBillDueDate(value: string) {
-  //   const selectedDate = new Date(value);
-
-  //   if (selectedDate.getDate() < 27 || selectedDate.getDate() > 30) {
-  //     this.userForm.controls['billDueDate'].setErrors({ 'invalidBillDueDate': true });
-  //   } else {
-  //     this.userForm.controls['billDueDate'].setErrors(null);
-  //   }
-  // }
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // getMinBillingDate(): string {
-  //   const today = new Date();
-  //   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-  //   return firstDayOfMonth.toISOString().split('T')[0];
-  // }
-
-  // getMaxBillingDate(): string {
-  //   const today = new Date();
-  //   const fifthDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 5);
-  //   return fifthDayOfMonth.toISOString().split('T')[0];
-  // }
-
-  // getMinDueDate(): string {
-  //   if (this.billingDate) {
-  //     const lastDayOfMonth = new Date(
-  //       this.billingDate.getFullYear(),
-  //       this.billingDate.getMonth(),
-  //       1
-  //     );
-  //     return lastDayOfMonth.toISOString().split('T')[0];
-  //   } else {
-  //     // Default to the current date if billingDate is not set yet
-  //     return this.getMinBillingDate();
-  //   }
-  // }
-
-  // getMaxDueDate(): string {
-  //   if (this.billingDate) {
-  //     const lastDayOfMonth = new Date(
-  //       this.billingDate.getFullYear(),
-  //       this.billingDate.getMonth(),
-  //       31
-  //     );
-  //     return lastDayOfMonth.toISOString().split('T')[0];
-  //   } else {
-  //     // Default to the current date if billingDate is not set yet
-  //     return this.getMinBillingDate();
-  //   }}
 }
 
 

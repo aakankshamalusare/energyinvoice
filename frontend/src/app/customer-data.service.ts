@@ -35,7 +35,7 @@ export class CustomerDataService {
 
   public updateInvoice(invoiceId:number){
 
-    return (this.http.put(`${this.baseUrl}update-status/${invoiceId}`,null,{ responseType: 'text' }));
+    return (this.http.put(`${this.baseUrl}update-status/${invoiceId}`,null));
   }
 
   public getOTP(id:any){
