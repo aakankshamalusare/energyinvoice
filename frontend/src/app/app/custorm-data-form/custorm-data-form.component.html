@@ -1,0 +1,126 @@
+<div class="card my-5">
+ 
+  <h2 class="card-title text-center" style="font-size: 30px; text-decoration: underline; font-family: Georgia, 'Times New Roman', serif;"  >{{title}}</h2>
+
+
+    <div class="card-body">
+     
+      <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+  
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" [(ngModel)]="customer.name" 
+            class="form-control" 
+            id="name" 
+            name="name" 
+            placeholder="Enter Name"
+            required
+            #name="ngModel">
+        </div>
+        <div [hidden]="!name.touched || name.valid" class="alert alert-danger">
+          Name is required.
+        </div>
+        
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" [(ngModel)]="customer.email" 
+            class="form-control" 
+            id="email" 
+            name="email" 
+            placeholder="Enter Email Address"
+            required
+            email  
+            #email="ngModel">
+        </div>
+        <div [hidden]="!email.touched || email.valid" class="alert alert-danger">
+          Email is required and must be a valid email address.
+        </div>
+        
+
+
+        <div class="form-group">
+          <label for="TelephoneNumber">Telephone Number</label>
+          <input type="text" [(ngModel)]="customer.telephoneNumber" 
+            class="form-control" 
+            id="telephoneNumber" 
+            name="telephoneNumber" 
+            placeholder="Enter TelephoneNumber"
+            required
+            pattern="[0-9]{10}" 
+            #telephoneNumber="ngModel">
+        </div>
+        <div [hidden]="!telephoneNumber.touched || telephoneNumber.valid" class="alert alert-danger">
+          TelephoneNumber must be a 10-digit number.
+        </div>
+        
+
+        <div class="form-group">
+          <label for="UnitConsumption">Unit Consumption</label>
+          <input type="number" [(ngModel)]="customer.unitConsumption" 
+            class="form-control" 
+            id="unitConsumption" 
+            name="unitConsumption" 
+            placeholder="Enter UnitConsumption"
+            required
+            [min]="0"
+            #unitConsumption="ngModel">
+        </div>
+        <div [hidden]="!unitConsumption.touched || unitConsumption.valid" class="alert alert-danger">
+          UnitConsumption must be a non-negative value.
+        </div>
+
+    
+        
+        <div class="form-group">
+          <label for="billingDuration">Billing Month</label>
+          <input type="date" [(ngModel)]="customer.billingDuration" 
+            class="form-control" 
+            id="billingDuration" 
+            name="billingDuration" 
+            placeholder="Enter Billing Month"
+            required
+           #billingDuration="ngModel"
+           (ngModelChange)="validateBillingDuration($event)"/>
+
+           </div>
+          <div *ngIf="billingDuration.errors?.invalidBillingDuration && billingDuration.touched" class="alert alert-danger">
+            Date must be between the 1st and 5th day of the month.
+          </div>
+
+        
+
+        <div class="form-group">
+          <label for="billDueDate">Bill Due Date</label>
+          <input type="date" [(ngModel)]="customer.billDueDate" 
+            class="form-control" 
+            id="billDueDate" 
+            name="billDueDate" 
+            placeholder="Enter Bill Due Date"
+            required
+            
+            #billDueDate="ngModel"
+           (change)="validateBillDueDate(billDueDate.value)">
+            
+          </div>
+          <div *ngIf="billDueDate.errors?.invalidbillDueDate && billDueDate.touched" class="alert alert-danger">
+            Date must be between the 25th and end day of the month.
+          </div>
+           
+
+          
+        
+
+         <button type="submit" [disabled]="!userForm.form.valid" 
+          class="btn btn-info">Submit</button>
+
+
+      </form>
+    </div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
+
+ 
+  

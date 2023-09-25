@@ -1,0 +1,36 @@
+<div class="card my-5">
+    <div class="card-body">
+      <h2 class="card-title text-center" style="font-size: 30px; text-decoration: underline; font-family: Georgia, 'Times New Roman', serif;"  >{{title}}</h2>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Invoice Number</th>
+            <th scope="col">Unit Consumption</th>
+            <th scope="col">Bill Month</th>
+            <th scope="col">Due Date</th>
+            <th scope ="col">Bill Amount</th>
+            <th scope = "col">Payment Status</th>
+            <th scope ="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of invoices">
+            <td>{{ invoice.invoiceNumber }}</td>
+            <td>{{ invoice.unitConsumption}}</td>
+            <td>{{invoice.billingDuration | date:'mediumDate'}}</td>
+            <td>{{invoice.dueDate}}</td>
+            <td>{{invoice.amountDue}}</td>
+            <td>{{ invoice.paymentStatus ? 'Paid' : 'Not Paid' }}</td>
+            <td>
+              
+              <a [routerLink]="['/update', invoice.invoiceId]" class="btn btn-primary" *ngIf="!invoice.paymentStatus">Cash</a>
+            </td>
+           
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <a routerLink="/customers" class="btn btn-info">Back</a>
+

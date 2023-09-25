@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-11">
+      <div class="card-body">
+       
+        <h1 class="text-center text-primary font-weight-bold" style="font-size: 36px;">LOGIN</h1>
+
+
+
+
+        <div class="col-lg-6 mx-auto">
+          <div class="card">
+           <div class="card-body py-5 px-md-5">
+        
+              
+              <form #f="ngForm">
+               
+                <div class="form-outline mb-4">
+                 
+                  <label for="employeeId">Employee ID</label>
+                  <input
+                    type="text"
+                    ngModel
+                    type="employeeId"
+                    class="form-control"
+                    id="employeeId"
+                    name="employeeId"
+                    placeholder="Enter Employee ID"
+                    required
+                    pattern="[0-9]+"
+                    #employeeId="ngModel"
+                  />
+                </div>
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid">
+                  Please Enter the Employee ID ...
+                </div>
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid && employeeId.errors?.minlength">
+                  Please enter an Employee ID of {{ employeeId.errors?.minlength.requiredLength }} characters.
+                </div>
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid && employeeId.errors?.pattern">
+                  Appropriate Employee ID (numeric) is required.
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="userotp">OTP</label>
+                  <input
+                    type="password"
+                    ngModel
+                    type="userotp"
+                    class="form-control"
+                    id="userotp"
+                    name="userotp"
+                    placeholder="Enter OTP"
+                    required
+                    pattern="[0-9]{4}"
+                    minlength="4"
+                    maxlength="4"
+                    #OTP="ngModel"
+                  />
+                </div>
+                <div class="alert alert-danger" *ngIf="OTP.touched && !OTP.valid">Please Enter a 4-digit OTP.</div>
+                <div class="alert alert-danger" *ngIf="OTP.touched && !OTP.valid && OTP.errors?.pattern">
+                  Appropriate OTP (4-digit numeric) is required.
+                </div>
+                <div class="alert alert-danger" *ngIf="invalidOTP">Invalid OTP. Please check your OTP and try again.</div>
+
+                <button type="send" class="btn btn-primary btn-block mb-4" (click)="otp(employeeId.value)">
+                  Send OTP
+                </button>
+
+                <button
+                  (click)="login(OTP.value, employeeId.value)"
+                  type="login"
+                  class="btn btn-primary btn-block mb-4"
+                  [disabled]="!f.valid"
+                >
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
