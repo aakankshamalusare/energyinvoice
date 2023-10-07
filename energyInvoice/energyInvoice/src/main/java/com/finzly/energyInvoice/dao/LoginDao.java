@@ -62,6 +62,8 @@ public class LoginDao {
 			return true;
 		}
 		
+		session.close();
+		
 		return false;
 	}
 	

@@ -33,6 +33,8 @@ public class CustomerDataDao {
 		session.close();
 		
 		return customerData.isEmpty()?null:customerData.get(0);
+		
+		
 	}
 
 	
@@ -48,6 +50,8 @@ public class CustomerDataDao {
 		
 		session.getTransaction().commit();
 		
+		session.close();
+		
 		return customerData;
 		
 	}
@@ -60,6 +64,8 @@ public class CustomerDataDao {
 		Criteria query = session.createCriteria(CustomerData.class);
 		
 		List<CustomerData> list = query.list();
+		
+		session.close();
 		
 		return list;
 	}

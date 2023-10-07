@@ -25,6 +25,7 @@ public class InvoiceDao {
 
 	public void generateInvoice(CustomerData customerData) {
 		
+		
 		Invoice invoice = new Invoice();
 		
 		String uniqueId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
@@ -69,6 +70,7 @@ public class InvoiceDao {
 		Invoice invoice = session.get(Invoice.class,invoiceId);
 	
 		invoice.setPaymentStatus(true);
+		invoice.setTrasactionDate(Date.valueOf(LocalDate.now()));
 		
 		session.update(invoice);
         session.getTransaction().commit();
@@ -80,28 +82,31 @@ public class InvoiceDao {
 		 
 		/* Transaction update*/
 		 
-		double totalBill = invoice.getAmountDue();
+		double bill = invoice.getAmountDue();
 		LocalDate currentDate = LocalDate.now();
 		Date date = Date.valueOf(currentDate);;
 		boolean isEarly =false;
-	     
+	    double totalBill=0.0;
 		 
 		// Apply a 5% discount for on-time payment
 		  if (isEarlyPayment(date,invoice.getDueDate())) {
 		       
-			 totalBill -= (totalBill * (5/100));
+			 totalBill = bill*0.05;
+			 
+			 bill = bill-totalBill;
 			 isEarly = true;
 		  }
 		 
-         if(totalBill<0) {
+         if(bill<0) {
 			 
 			 totalBill = invoice.getAmountDue();
 		 }
 			 
+        System.out.println(bill);
 		
          Payment payment = new Payment();
 		 
-		 payment.setPaymentAmount(totalBill);
+		 payment.setPaymentAmount(bill);
 		 payment.setIsEarly(isEarly);
 		 payment.setIsOnline(false);
 		
@@ -134,7 +139,7 @@ public class InvoiceDao {
 		  receipt.setInvoiceNumber(invoice.getInvoiceNumber());
 		  receipt.setUnitConsumption(invoice.getUnitConsumption());
 		  receipt.setAmount(invoice.getAmountDue());
-		  receipt.setDiscount_Amount(totalBill);
+		  receipt.setDiscount_Amount(bill);
 		  receipt.setTrasactionDate(Date.valueOf(LocalDate.now()));
 		  receipt.setPaymentMode(payment.getPaymentMethod());
 		  
@@ -152,7 +157,9 @@ public class InvoiceDao {
 		Session session = factory.openSession();
 		CustomerData customer = session.get(CustomerData.class,mapId);
 		
+		session.close();
 		return customer.getName();
+		
 	}
     
     

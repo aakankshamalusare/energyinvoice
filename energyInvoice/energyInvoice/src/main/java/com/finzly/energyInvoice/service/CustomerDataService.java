@@ -68,6 +68,7 @@ public class CustomerDataService {
 	    	
 	    	
 	    	isExists.setBillingDuration(customerData.getBillingDuration());
+	    	isExists.setUnitConsumption(customerData.getUnitConsumption());
 	    	invoiceDao.generateInvoice(isExists);
 	    	response.put("Message", "Added successfully");
 	    	return (response);

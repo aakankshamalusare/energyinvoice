@@ -62,6 +62,13 @@ public class PaymentController {
 	}
 	
 	
+	
+	
+	@PostMapping(value="/make-payment1/{invoiceId}")
+	public Map<String,String> makepayment1(@PathVariable long invoiceId){
+	
+		 return paymentService.makePayment1(invoiceId);		
+	}	
 	/**
 	 * 
 	 * @author Suraj

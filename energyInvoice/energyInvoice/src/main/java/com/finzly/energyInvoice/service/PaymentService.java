@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,9 @@ public class PaymentService {
 	@Autowired
 	InvoiceDao invoiceDao;
 	
+	@Autowired
+	SessionFactory factory;
+	
 	
 
 
@@ -43,29 +48,35 @@ public class PaymentService {
 		 LocalDate currentDate = LocalDate.now();
 		 Date date = Date.valueOf(currentDate);
 		 
+		 double bill =0.0;
+		 
 	     
 		 
 		 // Apply a 5% discount for on-time payment
 		  
 		 if (isEarlyPayment(date,invoice.getDueDate())) {
 		       
-			 totalBill -= (totalBill * (5/100));
+             totalBill = bill*0.05;
+			 
+			 bill = bill-totalBill;
 			 isEarly = true;
 		 }
 
 		 // Apply an additional 5% discount for online payment
 		 if (isOnlinePayment()) {
 		       
-			 totalBill -= (totalBill * (5/100));
+             totalBill = bill*0.05;
+			 
+			 bill = bill-totalBill;
 			 isOnline = true;
 		 }
 		 
 		 if(totalBill<0) {
 			 
-			 totalBill = invoice.getAmountDue();
+			 bill = invoice.getAmountDue();
 		 }
 		
-	     paymentDao.makePayment(invoice,totalBill,isEarly,isOnline);
+	     paymentDao.makePayment(invoice,bill,isEarly,isOnline);
 	     
 	     Map<String,String> response = new HashMap<>();
 	     
@@ -138,7 +149,64 @@ public class PaymentService {
 	
 	}
 
-	
-	
 
-}
+
+	public Map<String, String> makePayment1(long invoiceId) {
+		
+		
+		 boolean isEarly = false;
+		 boolean isOnline = false;
+		 
+		 Session session = factory.openSession();
+		 session.beginTransaction();
+		 Invoice invoice = session.get(Invoice.class,invoiceId);
+		
+		 
+		 double totalBill = invoice.getAmountDue();
+		 LocalDate currentDate = LocalDate.now();
+		 Date date = Date.valueOf(currentDate);
+		 
+		 double bill =0.0;
+		 
+	     
+		 
+		 // Apply a 5% discount for on-time payment
+		  
+		 if (isEarlyPayment(date,invoice.getDueDate())) {
+		       
+             bill = invoice.getAmountDue()*0.05;
+			 
+			 totalBill = totalBill-bill;
+			 isEarly = true;
+		 }
+		 
+		 // Apply an additional 5% discount for online payment
+		 if (isOnlinePayment()) {
+		       
+			  
+             bill = invoice.getAmountDue()*0.05;
+			 
+			 totalBill = totalBill-bill;
+			 isOnline = true;
+		 
+		 }
+		 
+			 
+		 if(totalBill<0) {
+			 
+			 bill = invoice.getAmountDue();
+		 }
+		
+	     paymentDao.makePayment(invoice,totalBill,isEarly,isOnline);
+	     
+	     Map<String,String> response = new HashMap<>();
+	     
+	     response.put("Message","Payment done successfully..... ");
+	     
+	     return (response);
+		
+		
+	}
+
+   }
+	

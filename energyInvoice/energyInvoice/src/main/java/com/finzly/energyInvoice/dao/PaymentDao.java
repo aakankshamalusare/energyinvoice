@@ -32,7 +32,7 @@ public class PaymentDao {
 		 Session session = factory.openSession();
 		 session.beginTransaction();
 		 
-	    Payment payment = new Payment();
+	     Payment payment = new Payment();
 		 
 		 payment.setPaymentAmount(billAmount);
 		 payment.setIsEarly(isEarly);
@@ -98,6 +98,7 @@ public class PaymentDao {
 		Session session = factory.openSession();
 		CustomerData customer = session.get(CustomerData.class,mapId);
 		
+		session.close();
 		return customer.getName();
 	}
 
@@ -109,6 +110,7 @@ public class PaymentDao {
 		List list = query.list();
 		
 		Set<Receipt> set = new LinkedHashSet<Receipt>(list);
+		session.close();
 		return set;
 	}
 
