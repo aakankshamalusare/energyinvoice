@@ -1,0 +1,27 @@
+<div class="card my-5">
+    <div class="card-body">
+      <h2 class="card-title text-center" style="font-size: 30px; text-decoration: underline; font-family: Georgia, 'Times New Roman', serif;"  >{{title}}</h2>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Invoice Number</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Transaction Date</th>
+            <th scope = "col">Payment Mode</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of payments">
+            <td>{{  payment.invoiceNumber }}</td>
+            <td>{{  payment.discount_Amount}}</td>
+            <td>{{ payment. trasactionDate}}</td>
+            <td>{{ payment.paymentMode}}</td>
+        
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <a routerLink="/customers" class="btn btn-info">Back</a>
+
+

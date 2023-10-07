@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerData } from '../customer-data';
+import { CustomerData } from '../model/customer-data';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerDataService } from '../customer-data.service';
+import { CustomerDataService } from '../services/customer-data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { billingDurationValidator } from '../custom-valiadtors';
+import { billingDurationValidator } from '../services/custom-valiadtors';
 
 @Component({
   selector: 'app-custorm-data-form',
@@ -61,7 +61,7 @@ export class CustormDataFormComponent implements OnInit {
     .subscribe((response:any)=>{
     
       const message = response.hasOwnProperty('Message') ? response.Message : '';
-     this.successMessage = message;
+      this.successMessage = message;
 
       const error = response.hasOwnProperty('Error') ? response.Error : '';
       this.errorMessage = error;
@@ -86,31 +86,35 @@ export class CustormDataFormComponent implements OnInit {
     this.router.navigate(['/customers'])
   }
 
-  // Custom validator for billing duration (1-5)
-   validateBillingDuration(value:string) {
-   const selectedDate = new Date(value);
 
-    if (selectedDate.getDate() < 1 || selectedDate.getDate() > 5) {
-      console.log("in IF---------");
-      this.userForm.controls['billingDuration'].setErrors({ 'invalidBillingDuration': true });
-      
-   } else {
-    console.log("in else---------");
-     this.userForm.controls['billingDuration'].setErrors(null);
-     //this.userForm.get('billingDuration').setErrors({ 'invalidBillingDuration': true });
-     }
-   }
 
-   validateBillDueDate(value: string) {
-    const selectedDate = new Date(value);
 
-     if (selectedDate.getDate() < 27 || selectedDate.getDate() > 30) {
-      this.userForm.controls['billDueDate'].setErrors({ 'invalidBillDueDate': true });
-     } else {
-         this.userForm.controls['billDueDate'].setErrors(null);
-     }
-   }
+   isValidBillingMonth(dateString: string): boolean {
+    const selectedDate = new Date(dateString);
+    const day = selectedDate.getDate();
+    const currentDate = new Date();
 
+    return day >= 1 && day <= 5 && 
+    selectedDate.getFullYear() <= currentDate.getFullYear() &&
+    selectedDate.getMonth() <= currentDate.getMonth() 
+  }
+
+
+  isValidBillDueDate(dateString: string, billingDuration: string): boolean {
+    
+    const selectedDate = new Date(dateString);
+    const dueYear = selectedDate.getFullYear();
+    const dueMonth = selectedDate.getMonth();
+
+    const billDate = new Date(dateString);
+    const year = billDate.getFullYear();
+    const month = billDate.getMonth();
+
+    // Check if due date is between 25th and end of the same month and year as billing month
+    return dueYear === year && dueMonth === month && selectedDate.getDate() >= 25;
+  }
+  
+  
   
 }
 

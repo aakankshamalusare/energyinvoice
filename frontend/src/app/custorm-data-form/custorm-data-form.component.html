@@ -14,7 +14,7 @@
             class="form-control" 
             id="name" 
             name="name" 
-            placeholder="Enter your name"
+            placeholder="Enter Name"
             required
             #name="ngModel">
         </div>
@@ -29,7 +29,7 @@
             class="form-control" 
             id="email" 
             name="email" 
-            placeholder="Enter your email address"
+            placeholder="Enter Email Address"
             required
             email  
             #email="ngModel">
@@ -46,7 +46,7 @@
             class="form-control" 
             id="telephoneNumber" 
             name="telephoneNumber" 
-            placeholder="Enter your TelephoneNumber"
+            placeholder="Enter TelephoneNumber"
             required
             pattern="[0-9]{10}" 
             #telephoneNumber="ngModel">
@@ -71,23 +71,27 @@
           UnitConsumption must be a non-negative value.
         </div>
 
-    
-        
         <div class="form-group">
           <label for="billingDuration">Billing Month</label>
-          <input type="date" [(ngModel)]="customer.billingDuration" 
-            class="form-control" 
-            id="billingDuration" 
-            name="billingDuration" 
+          <input
+            type="date"
+            [(ngModel)]="customer.billingDuration"
+            class="form-control"
+            id="billingDuration"
+            name="billingDuration"
             placeholder="Enter Billing Month"
             required
-           #billingDuration="ngModel"
-           (ngModelChange)="validateBillingDuration($event)"/>
-
-           </div>
-          <div *ngIf="billingDuration.errors?.invalidBillingDuration && billingDuration.touched" class="alert alert-danger">
-            Date must be between the 1st and 5th day of the month.
-          </div>
+            #billingDuration="ngModel"
+          >
+        </div>
+        <div class="alert alert-danger" *ngIf="billingDuration.invalid && (billingDuration.dirty || billingDuration.touched)">
+          Billing Month is required.
+        </div>
+        <div class="alert alert-danger" *ngIf="!billingDuration.errors?.required && billingDuration.dirty && billingDuration.value && !isValidBillingMonth(billingDuration.value)">
+          Date should be between 1-5 only
+      </div>
+        
+       
 
         
 
@@ -98,15 +102,21 @@
             id="billDueDate" 
             name="billDueDate" 
             placeholder="Enter Bill Due Date"
-            required
-            
-            #billDueDate="ngModel"
-           (change)="validateBillDueDate(billDueDate.value)">
-            
+            required [min]="customer.billingDuration"
+             #billDueDate="ngModel">
+
+          <div class="alert alert-danger" *ngIf="billDueDate.invalid && (billDueDate.dirty || billDueDate.touched)">
+              Due Date is required.
           </div>
-          <div *ngIf="billDueDate.errors?.invalidbillDueDate && billDueDate.touched" class="alert alert-danger">
-            Date must be between the 25th and end day of the month.
+          <div class="alert alert-danger" *ngIf="!billDueDate.errors?.required && billDueDate.dirty && billDueDate.value && !isValidBillDueDate(billDueDate.value, billingDuration.value)">
+              Due date should be between the 25th and end as same as billingMonth month
           </div>
+         
+             
+      </div>
+
+           
+         
            
 
           

@@ -5,7 +5,7 @@
       <div class="card my-5">
         <div class="card-body">
           <h2 class="card-title text-center" style="font-size: 30px; text-decoration: underline; font-family: Georgia, 'Times New Roman', serif;"  >{{title}}</h2>
-          <table class="table table-bordered table-striped">
+          <table class="table table-bordered table-hover">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">CustomerID</th>
@@ -13,6 +13,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">TelephoneNumber</th>
                 <th scope="col">Invoices</th>
+                <th scope="col">Transaction</th>
               </tr>
             </thead>
             <tbody>
@@ -23,6 +24,9 @@
                 <td>{{customer.telephoneNumber}}</td>
                 <td>
                   <a [routerLink]="['/invoice', customer.customerId]" class="btn btn-info">Invoice</a>
+                </td>
+                <td>
+                  <a [routerLink]="['/transaction', customer.customerId]" class="btn btn-info">History</a>
                 </td>
               </tr>
             </tbody>

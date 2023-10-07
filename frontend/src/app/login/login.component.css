@@ -1,0 +1,8 @@
+/* Center the form horizontally and vertically within its parent container */
+
+
+/* Optionally, add margin and padding to the form for better appearance */
+.card-body {
+    margin: 20px; /* Adjust margin as needed */
+    padding: 20px; /* Adjust padding as needed */
+}

@@ -4,11 +4,12 @@ import { CustomerDataListComponent } from './customer-data-list/customer-data-li
 import { CustormDataFormComponent } from './custorm-data-form/custorm-data-form.component';
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { UploadComponent } from './upload/upload.component';
-import { CustomerDataService } from './customer-data.service';
+import { CustomerDataService } from './services/customer-data.service';
 import { UpdateInvoiceComponent } from './update-invoice/update-invoice.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 const routes: Routes = [
   {
@@ -44,10 +45,10 @@ const routes: Routes = [
     path:"home", component:HomeComponent
   },
 
-  /*{
+  {
 
-    path:"app",component:AppComponent
-  }*/
+    path:"transaction/:customerId",component:TransactionComponent
+  }
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerData } from '../customer-data';
-import { CustomerDataService } from '../customer-data.service';
-import { Invoice } from '../invoice';
+import { CustomerData } from '../model/customer-data';
+import { CustomerDataService } from '../services/customer-data.service';
+import { Invoice } from '../model/invoice';
 
 @Component({
   selector: 'app-customer-data-list',
@@ -11,7 +11,8 @@ import { Invoice } from '../invoice';
 export class CustomerDataListComponent implements OnInit {
 
   customers!:CustomerData[];
-  invoices !: Invoice[];
+
+  
   title!:string;
 
   constructor(private customerDataService:CustomerDataService) { }

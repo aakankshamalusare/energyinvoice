@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerData } from '../customer-data';
-import { CustomerDataService } from '../customer-data.service';
+import { CustomerData } from '../model/customer-data';
+import { CustomerDataService } from '../services/customer-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { Invoice } from '../invoice';
+import { Invoice } from '../model/invoice';
 
 @Component({
   selector: 'app-invoice-list',

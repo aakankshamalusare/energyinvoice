@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerDataService } from '../customer-data.service';
+import { CustomerDataService } from '../services/customer-data.service';
 import { Router } from '@angular/router';
-import { otp } from '../otp';
+import { otp } from '../model/otp';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     title:"Login"
+    document.body.className='bg_background';
   }
 
 
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     let userotp=+otp; 
     let useremployeeId=+employeeId;
     console.log(this.obj.otp.employeeId) 
+    
     if(userotp==this.obj.otp.otp && useremployeeId===this.obj.otp.employeeId){
       sessionStorage.setItem("employeeId)",this.obj.otp.employeeId);
       this.authService.setLoggedInStatus(true);
@@ -50,7 +52,7 @@ this.service.getOTP(userid).subscribe(
     if (response && response.otp && response.otp.otp) {
       this.obj = response;
       console.log(this.obj.otp.otp);
-      alert(this.obj.otp.otp);
+      alert(`Your OTP :${this.obj.otp.otp}`);
     } 
   },
   (error) => {
