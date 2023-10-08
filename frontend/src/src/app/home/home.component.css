@@ -1,0 +1,11 @@
+/* Center the component horizontally and vertically within its parent container */
+
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Adjust the height as needed */
+    max-width: 80%; /* Set the maximum width of the centered component */
+    margin: 0 auto; /* Center the container horizontally within its parent */
+}
+
